@@ -4,7 +4,7 @@
 
 	var MainScreen = Ω.Screen.extend({
 
-		speed:  2,
+		speed:  1,
 		bird: null,
 		pipes: null,
 

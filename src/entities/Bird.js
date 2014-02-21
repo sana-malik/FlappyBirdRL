@@ -7,9 +7,9 @@
         h: 15,
 
         ac: 0,
-        jumpAc: -7,
-        maxGravity: 8,
-        gravityAc: 0.4,
+        jumpAc: -5,
+        maxGravity: 3,
+        gravityAc: 0.1,
 
         color: 0,
 
