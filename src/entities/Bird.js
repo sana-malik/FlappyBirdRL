@@ -7,14 +7,14 @@
         h: 15,
 
         ac: 0,
-        jumpAc: -5,
-        maxGravity: 3,
+        jumpAc: -4,
+        maxGravity: 4,
         gravityAc: 0.1,
 
         color: 0,
 
         state: null,
-        flapping: 100,
+        flapping: 10,
 
         font: new Ω.Font("res/flapfont.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
         font2: new Ω.Font("res/flapfont2.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),

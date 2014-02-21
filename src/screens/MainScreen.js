@@ -7,6 +7,7 @@
 		speed:  1,
 		bird: null,
 		pipes: null,
+		socket: null,
 
 		score: 0,
 		state: null,
@@ -41,6 +42,14 @@
 			this.reset();
 			console.log("**** **** INIT **** ****");
 
+			this.socket = io.connect('http://localhost:5000');
+			var that = this;
+			this.socket.on('message', function(data) {
+				if (data == 'doJump') {
+					console.log('jumping')
+					that.bird.performJump();
+				}
+			});
 			// Vertical Distance
 			this.Q = new Array();
 			for (var vert_dist = 0; vert_dist < (this.vertical_dist_range[1] - this.vertical_dist_range[0])/this.resolution; vert_dist++) {
@@ -286,7 +295,8 @@
 				//console.log("action performed: " + this.action_to_perform);
 
 				if (this.action_to_perform == "click") {
-					this.bird.performJump();
+					console.log("jump");
+  					this.socket.send('jump');
 				}
 
 			}
@@ -478,7 +488,6 @@
 	});
 
 	window.MainScreen = MainScreen;
-
 }(window.Ω));
 
 
