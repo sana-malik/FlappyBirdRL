@@ -14,10 +14,11 @@ void loop() {
     mode = ch - '0';
     digitalWrite(13, mode);
   }
-  //if (mode) {
+  if (mode) {
     sensorValue = analogRead(A0);
     if (sensorValue < 90) {
       Serial.print("1");
+      mode = 0;
     }
-  //}
+  }
 }
