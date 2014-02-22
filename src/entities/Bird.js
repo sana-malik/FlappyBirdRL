@@ -14,7 +14,7 @@
         color: 0,
 
         state: null,
-        flapping: 10,
+        flapping: 100,
 
         font: new Ω.Font("res/flapfont.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
         font2: new Ω.Font("res/flapfont2.png", 16, 22, "abcdefghijklmnopqrstuvwxyz"),
