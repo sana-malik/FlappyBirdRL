@@ -1,34 +1,40 @@
 var connect = require('connect'),
 	http = require('http'),
-	socketio = require('socket.io'),
-	serialport = require('serialport')
-	SerialPort = serialport.SerialPort,
-	serialPort = new SerialPort('/dev/tty.usbmodemfa131', {baudrate: 9600}),
-	path = require('path');
+	socketio = require('socket.io');
+	serialport = require('serialport'),
+    argv = process.argv;
 
-var app = connect()
-  .use(connect.static('/Users/sana/Documents/School/14-02\ Spring/CMSC838F\ -\ Tangible\ Computing/MPA01\ -\ FlappyCat/FlappyBirdRL'));
+if (argv.length < 4) {
+    console.log("Usage: node flappycat.js /serial/device baudrate");
+    process.exit(1);
+}
 
-var server = http.createServer(app);
+/* Initialize serial connection */
+var ser = new serialport.SerialPort(argv[2], {baudrate: parseInt(argv[3])});
 
-var IO = socketio.listen(server);
+/* Initialize server */
+var app = connect().use(connect.static(__dirname + '/public')),
+    server = http.createServer(app);
+    IO = socketio.listen(server);
 server.listen(5000);
 
+/* Socket.io routes */
 IO.sockets.on('connection', function (socket) {
 	console.log('socket connected');
-
 
 	socket.on('message', function(data) {
 		console.log('recieved jump signal');
 		if (data == 'jump') {
-			serialPort.write('1');
-			setTimeout( function() {serialPort.write('0');}, 500);
+			ser.write('1');
+			setTimeout(function() {
+                ser.write('0');
+            }, 500);
 		}
 	});
 
-	serialPort.on('data', function(data) {
+	ser.on('data', function(data) {
 		console.log('sending jump command');
 		socket.send('doJump');
-		serialPort.write('0');
+		ser.write('0');
 	});
 });

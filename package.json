@@ -1,0 +1,14 @@
+{
+  "name": "FlappyCat",
+  "version": "0.1.0",
+  "description": "A cat-friendly version of Flappy Bird",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sana-malik/FlappyCat.git"
+  },
+  "dependencies": {
+    "connect": "^2.13.0",
+    "serialport": "^1.3.1",
+    "socket.io": "^0.9.16"
+  }
+}

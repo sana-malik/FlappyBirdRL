@@ -1,4 +1,6 @@
-FlappyBirdRL
-============
+# Flappy Cat
 
-Flappy Bird hack using Reinforcement Learning
+## Instructions
+
+1. npm install
+2. node flappycat.js
