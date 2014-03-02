@@ -23,6 +23,8 @@
 		shake: null,
 		flash: null,
 
+		jumpDialog: null,
+
 
 		
 		m_state: {"vertical_distance": 0, "horizontal_distance": 0},
@@ -42,11 +44,14 @@
 			this.reset();
 			console.log("**** **** INIT **** ****");
 
+			this.jumpDialog = new JumpDialog();
+
 			this.socket = io.connect('http://localhost:5000');
 			var that = this;
 			this.socket.on('message', function(data) {
 				if (data == 'doJump') {
-					console.log('jumping')
+					console.log('jumping');
+					that.jumpDialog.done();
 					that.bird.performJump();
 				}
 			});
@@ -299,6 +304,7 @@
 				if (this.action_to_perform == "click") {
 					console.log("jump");
   					this.socket.send('jump');
+					game.setDialog(this.jumpDialog);
 				}
 
 			}
