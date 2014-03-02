@@ -9,6 +9,8 @@ if (argv.length < 4) {
     process.exit(1);
 }
 
+var allowJump = true;
+
 /* Initialize serial connection */
 var ser = new serialport.SerialPort(argv[2], {baudrate: parseInt(argv[3])});
 
@@ -24,17 +26,23 @@ IO.sockets.on('connection', function (socket) {
 
 	socket.on('message', function(data) {
 		console.log('recieved jump signal');
-		if (data == 'jump') {
+		if (allowJump && data == 'jump') {
 			ser.write('1');
-			setTimeout(function() {
+			/*setTimeout(function() {
                 ser.write('0');
-            }, 500);
+            }, 500);*/
 		}
 	});
 
 	ser.on('data', function(data) {
-		console.log('sending jump command');
-		socket.send('doJump');
+		//console.log('sending jump command');
 		ser.write('0');
+        if (allowJump) {
+		    socket.send('doJump');
+            allowJump = false;
+            setTimeout(function () {
+                allowJump = true;
+            }, 250);
+        }
 	});
 });

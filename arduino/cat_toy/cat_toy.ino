@@ -1,8 +1,6 @@
-
-char mode = 0;
+int THRESHOLD = 80;
 
 void setup() {
-  // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
   pinMode(13, OUTPUT);
 }
@@ -11,14 +9,12 @@ void loop() {
   int sensorValue = 0;
   if (Serial.available()) {
     char ch = Serial.read();
-    mode = ch - '0';
-    digitalWrite(13, mode);
+    digitalWrite(13, ch - '0');
   }
-  if (mode) {
-    sensorValue = analogRead(A0);
-    if (sensorValue < 90) {
-      Serial.print("1");
-      mode = 0;
-    }
+  sensorValue = analogRead(A0);
+  if (sensorValue < THRESHOLD) {
+    Serial.print("1");
   }
 }
+
+
